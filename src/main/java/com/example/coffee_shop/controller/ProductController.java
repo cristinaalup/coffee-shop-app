@@ -2,8 +2,8 @@ package com.example.coffee_shop.controller;
 
 import com.example.coffee_shop.model.Product;
 import com.example.coffee_shop.service.IProductService;
-import com.example.coffee_shop.service.ProductService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -16,14 +16,24 @@ public class ProductController {
     private IProductService productService;
 
     @GetMapping
-    public ResponseEntity<List<Product>> getAllProducts(){
-        List<Product> products = productService.getAllProducts();
-        return ResponseEntity.ok(products);
+    public ResponseEntity<?> getAllProducts(){
+        try{
+            List<Product> products = productService.getAllProducts();
+            return ResponseEntity.ok(products);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 
     @PostMapping("/admin")
-    public ResponseEntity<Product> addProduct(@RequestBody Product product){
-        Product newProduct = productService.createProduct(product);
-        return ResponseEntity.ok(newProduct);
+    public ResponseEntity<?> addProduct(@RequestBody Product product){
+        try{
+            Product newProduct = productService.createProduct(product);
+            return ResponseEntity.ok(newProduct);
+        } catch (RuntimeException e) {
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

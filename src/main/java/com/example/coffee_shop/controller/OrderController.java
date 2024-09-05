@@ -30,8 +30,13 @@ public class OrderController {
     }
 
     @GetMapping
-    public ResponseEntity<List<CustomerOrderResponseDto>> getAllOrders(){
-        List<CustomerOrderResponseDto> orders = orderService.getAllOrders();
-        return ResponseEntity.ok(orders);
+    public ResponseEntity<?> getAllOrders(){
+        try{
+            List<CustomerOrderResponseDto> orders = orderService.getAllOrders();
+            return ResponseEntity.ok(orders);
+        }catch(RuntimeException e){
+            return new ResponseEntity<>("Error: " + e.getMessage(), HttpStatus.BAD_REQUEST);
+        }
+
     }
 }

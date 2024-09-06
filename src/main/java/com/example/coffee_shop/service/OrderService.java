@@ -14,13 +14,14 @@ import java.util.stream.Collectors;
 
 @Service
 public class OrderService implements IOrderService{
-    @Autowired
+
     private  CustomerRepository customerRepository;
-    @Autowired
+
     private  ProductRepository productRepository;
-    @Autowired
+
     private CustomerOrderRepository customerOrderRepository;
 
+    @Autowired
     public OrderService(CustomerRepository customerRepository, ProductRepository productRepository,
                         CustomerOrderRepository customerOrderRepository) {
         this.customerRepository = customerRepository;

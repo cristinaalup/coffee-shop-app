@@ -4,6 +4,7 @@ import com.example.coffee_shop.model.CustomerOrderResponseDto;
 import com.example.coffee_shop.model.OrderProductRequestDto;
 import com.example.coffee_shop.service.IOrderService;
 import com.example.coffee_shop.service.OrderService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -15,6 +16,7 @@ import java.util.List;
 public class OrderController {
     private IOrderService orderService;
 
+    @Autowired
     public OrderController(OrderService orderService) {
         this.orderService = orderService;
     }
